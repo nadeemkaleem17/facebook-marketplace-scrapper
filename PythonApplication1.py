@@ -25,6 +25,9 @@ def scrape_facebook_marketplace_partial(city, product, min_price, max_price, cit
 def scrape_facebook_marketplace(city, product, min_price, max_price, city_code_fb, exact, sleep_time=5):
     chrome_options = Options()
     # chrome_options.add_argument("--headless")  # Uncomment if you want headless mode
+    chrome_options.add_argument("--headless")  # Enable headless mode
+    chrome_options.add_argument("--no-sandbox")  # Avoids issues with running on Streamlit Cloud
+    chrome_options.add_argument("--disable-dev-shm-usage")  # Helps with memory issues on cloud platforms
 
     # Use WebDriverManager to handle ChromeDriver installation
     browser = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=chrome_options)
