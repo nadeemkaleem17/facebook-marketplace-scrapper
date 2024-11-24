@@ -1,8 +1,8 @@
 ﻿import streamlit as st
 from selenium import webdriver
-from selenium.webdriver.chrome.service import Service
-from selenium.webdriver.chrome.options import Options
-from webdriver_manager.chrome import ChromeDriverManager
+from selenium.webdriver.firefox.service import Service
+from selenium.webdriver.firefox.options import Options
+from webdriver_manager.firefox import GeckoDriverManager # GeckoDriverManager just to not change labeling
 from selenium.webdriver.common.by import By
 from bs4 import BeautifulSoup
 import re
@@ -31,7 +31,7 @@ def scrape_facebook_marketplace(city, product, min_price, max_price, city_code_f
     chrome_options.add_argument("--disable-dev-shm-usage")  # Helps with memory issues on cloud platforms
 
     # Use WebDriverManager to handle ChromeDriver installation
-    browser = webdriver.Firefox(service=Service(ChromeDriverManager().install()), options=chrome_options)
+    browser = webdriver.Firefox(service=Service(GeckoDriverManager().install()), options=chrome_options)
 
     # Setup URL
     exact_param = 'true' if exact else 'false'
