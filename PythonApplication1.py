@@ -1,6 +1,7 @@
 ﻿import streamlit as st
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.chrome.options import Options
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.common.by import By
 from bs4 import BeautifulSoup
@@ -9,7 +10,6 @@ import pandas as pd
 import time
 from fuzzywuzzy import fuzz
 from datetime import datetime
-from selenium.webdriver.chrome.options import Options
 import zipfile
 import io
 
@@ -26,10 +26,12 @@ def scrape_facebook_marketplace(city, product, min_price, max_price, city_code_f
     chrome_options = Options()
     chrome_options.add_argument("--headless")  # Enable headless mode # Uncomment if you want headless mode
     chrome_options.add_argument("--no-sandbox")  # Avoids issues with running on Streamlit Cloud
+    chrome_options.add_argument("--disable-gpu")  # Required for some environments
+
     chrome_options.add_argument("--disable-dev-shm-usage")  # Helps with memory issues on cloud platforms
 
     # Use WebDriverManager to handle ChromeDriver installation
-    browser = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=chrome_options)
+    browser = webdriver.Firefox(service=Service(ChromeDriverManager().install()), options=chrome_options)
 
     # Setup URL
     exact_param = 'true' if exact else 'false'
